@@ -1,3 +1,5 @@
+
+
 var dayOfWeek = new Date().getDay();
 // only check on Thursday and Friday
 if(dayOfWeek == 4 || dayOfWeek == 5) {
