@@ -29,7 +29,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
     else {
         loadChaptersFromReddit();
+        sendResponse({status: true});
     }
+    return true;
 });
 
 function getChapters() {
