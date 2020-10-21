@@ -11,14 +11,14 @@ body {
 }
 
 .popup-header {
-    padding: 2px 16px;
+    padding: 2px 12px;
     background-color: white;
     color: black;
     border-bottom: 1px solid;
 }
 
 .popup-body {
-    padding: 2px 2px 2px 16px;
+    padding: 2px 2px 2px 14px;
 }
 
 #logoImage {
@@ -29,7 +29,13 @@ body {
 
 h1 {
     font-size: 18px;
-    margin-left: 50px;
+    margin: 0px 0px 0px 60px;
+}
+
+h2 {
+    font-size: 12px;
+    color: darkgrey;
+    margin:  5px 0px 0px 60px;
 }
 
 .refresh {
@@ -61,6 +67,17 @@ h1 {
 
 #chapterList a button {
     padding: 5px 10px;
+    width: 100%;
+}
+
+.new {
+    background-color: lightcoral;
+    border-color: red;
+    font-weight: bold;
+    color: white;
+}
+
+.old {
     border: lightgray 1px solid;
     background-color: whitesmoke;
 }
