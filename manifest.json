@@ -5,16 +5,6 @@
   "author": "Erwin Tran",
   "description": "An Extension which checks the newest manga release on Reddit",
   "permissions": ["activeTab"],
-  "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "content.js"
-      ]
-    }
-  ],
   "background": {
     "scripts": [
       "background.js"

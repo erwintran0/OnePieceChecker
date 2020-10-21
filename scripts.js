@@ -1,41 +1,28 @@
-var chapters = [
-    { title: "One Piece Chapter 981", isNew: true },
-    { title: "One Piece Chapter 750", isNew: false },
-    { title: "One Piece Chapter 234", isNew: false }
-];
+// script is executed whenever extension pop up is open
 
-populateChapterList();
-
-
-var dayOfWeek = new Date().getDay();
-// only check on Thursday and Friday
-if(dayOfWeek == 4 || dayOfWeek == 5) {
-    // activates every x minutes
-    setInterval(reloadChapters, 30 * 60 * 1000);
-}
+loadChapters();
 
 // on click handler for refresh button
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('button').addEventListener('click', onclick, false);
 
     function onclick() {
-        reloadChapters();
+        chrome.tabs.query({currentWindow: true, active: true},
+            function (tabs) {
+                chrome.runtime.sendMessage("loadChaptersFromReddit", loadChapters);
+            });
     }
 }, false);
 
-function reloadChapters() {
+function loadChapters() {
+
     chrome.tabs.query({currentWindow: true, active: true},
         function (tabs) {
-            chrome.runtime.sendMessage("getOnePieceChapters", handleChapters);
+            chrome.runtime.sendMessage("getChapters", populateChapterList);
         });
 }
 
-function handleChapters(loadedChapters) {
-    chapters = loadedChapters;
-    populateChapterList();
-}
-
-function populateChapterList() {
+function populateChapterList(chapters) {
 
     var chapterList = document.getElementById("chapterList");
     // clear chapters
