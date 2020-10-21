@@ -10,6 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayStatus(res) {
-        alert("Is it out yet? " + res.isOut);
+        //alert("Is it out yet? " + res.isOut);
     }
 }, false);
