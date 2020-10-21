@@ -1,9 +1,10 @@
 // background script is executed whenever chrome has started
 const redditUrl = "https://www.reddit.com/r/OnePiece/search.json?q=flair_name%3A%22Current%20Chapter%22&restrict_sr=1&t=month";
+const newChapterHourLimit = 164;
 
 var chapters = [
-    { title: "Test Title 1", url: "", created: "" },
-    { title: "Test Title 2", url: "", created: "" }
+    { title: "Test Title 1", url: "", status: "", created: "" },
+    { title: "Test Title 2", url: "", status: "", created: "" }
 ];
 
 loadChaptersFromReddit();
@@ -44,18 +45,45 @@ function loadChaptersFromReddit() {
 
     chapters = [];
     posts.data.children.forEach(post => {
-        // ignore discussion posts
-        if(!post.data.title.endsWith("Official Release Discussion")) {
 
-            // add chapter to list
-            var chapter = { 
-                title: post.data.title, 
-                url: post.data.url, 
-                created: post.data.created_utc, 
-            };
-            chapters.push(chapter);
-        }
+        // add chapter to list
+        var chapter = { 
+            title: post.data.title, 
+            url: post.data.url, 
+            created: post.data.created_utc, 
+            status: "old"
+        };
+        chapters.push(chapter);
     });
+
+    evaluatePosts();
+}
+
+function evaluatePosts() {
+
+    var i = 0;
+    while (i < chapters.length) {
+
+        var date = new Date(0).setUTCSeconds(chapters[i].created);
+        var hoursDifference = Math.abs(Date.now() - date) / 36e5;
+        if(hoursDifference < newChapterHourLimit) {
+            // if chapter was created under x hours it's marked as new
+            chapters[i].status = "new";
+            addBadgeToIcon();
+        }
+
+        if(chapters[i].title.endsWith("Discussion")) {            
+            chapters.splice(i, 1);
+        }
+        else {
+            ++i;
+        }
+    }
+}
+
+function addBadgeToIcon() {
+    chrome.browserAction.setBadgeText({text: 'New'});
+    chrome.browserAction.setBadgeBackgroundColor({color: '#f72828'}); 
 }
 
 function httpGet(url)
