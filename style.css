@@ -47,7 +47,7 @@ h1 {
     height: 100%;
 }
 
-.chapter-list {
+#chapterList {
     margin-left: 60px;
     border: 1px solid;
 }

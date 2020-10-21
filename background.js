@@ -1,20 +1,30 @@
-const redditUrl = "https://www.reddit.com/r/OnePiece/search.json?q=flair_name%3A%22Current%20Chapter%22&restrict_sr=1&t=week";
-
-var dayOfWeek = new Date().getDay();
-// only check on Thursday and Friday
-if(dayOfWeek == 4 || dayOfWeek == 5) {
-    // activates every x minutes
-    setInterval(checkOnePieceReddit, 30 * 60 * 1000);
-}
+const redditUrl = "https://www.reddit.com/r/OnePiece/search.json?q=flair_name%3A%22Current%20Chapter%22&restrict_sr=1&t=month";
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    checkOnePieceReddit();
-    sendResponse({isOut: false});
+    var chapters = getOnePieceChapters();
+    sendResponse(chapters);
 });
 
-function checkOnePieceReddit() {
+function getOnePieceChapters() {
 
-    chrome.extension.getBackgroundPage().console.log(httpGet(redditUrl));
+    var posts = JSON.parse(httpGet(redditUrl));
+    
+    var bp = chrome.extension.getBackgroundPage();
+    bp.console.log(posts);
+    var chapters = [];
+    posts.data.children.forEach(post => {
+        // ignore discussion posts
+        if(!post.data.title.endsWith("Official Release Discussion")) {
+
+            // add chapter to list
+            var chapter = { 
+                title: post.data.title, 
+                isNew: post.data.link_flair_text == "Current Chapter" 
+            };
+            chapters.push(chapter);
+        }
+    });
+    return chapters;
 }
 
 function httpGet(url)
