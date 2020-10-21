@@ -21,8 +21,6 @@ if(dayOfWeek == 4 || dayOfWeek == 5) {
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     
-    var bp = chrome.extension.getBackgroundPage();
-    bp.console.log(request);
     if(request == "getChapters") {
         var chapters = getChapters();
         sendResponse(chapters);

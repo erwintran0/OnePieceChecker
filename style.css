@@ -59,7 +59,7 @@ h1 {
     margin-left: 50px;
 }
 
-#chapterList div {
+#chapterList a button {
     padding: 5px 10px;
     border: lightgray 1px solid;
     background-color: whitesmoke;
