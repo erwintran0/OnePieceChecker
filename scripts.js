@@ -30,7 +30,9 @@ function populateChapterList(chapters) {
 
     // populate with new chapters
     chapters.forEach(chapter => {
+        console.log(chapter);
         var element = document.createElement('div');
+        element.setAttribute('href', chapter.url);
         element.innerHTML = chapter.title;
         chapterList.appendChild(element)
     });

@@ -2,9 +2,9 @@
 const redditUrl = "https://www.reddit.com/r/OnePiece/search.json?q=flair_name%3A%22Current%20Chapter%22&restrict_sr=1&t=month";
 
 var chapters = [
-    { title: "Test Title 1", status: "new" },
-    { title: "Test Title 2", status: "spoiler" },
-    { title: "Test Title 3", status: "old" }
+    { title: "Test Title 1", url: "", status: "new" },
+    { title: "Test Title 2", url: "", status: "spoiler" },
+    { title: "Test Title 3", url: "", status: "old" }
 ];
 
 loadChaptersFromReddit();
@@ -51,6 +51,7 @@ function loadChaptersFromReddit() {
             // add chapter to list
             var chapter = { 
                 title: post.data.title, 
+                url: post.data.url, 
                 status: post.data.link_flair_text == "Current Chapter" 
             };
             chapters.push(chapter);
