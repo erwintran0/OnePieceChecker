@@ -24,7 +24,14 @@ body {
 #logoImage {
     float: left;
     width: 40px;
-    padding: 5px 0;
+    margin: 5px 0;
+    border-radius: 5px;
+    padding: 0;
+    -webkit-transition: background 0.5s;
+}
+
+#logoImage:hover {
+    background-color: lightgrey;
 }
 
 h1 {
@@ -44,11 +51,11 @@ h2 {
     width: 35px;
     margin-top: 10px;
     padding: 0;
+    cursor: pointer;
     border: 0;
     border-radius: 15px;
     background: white;
-    text-decoration: none;
-    -webkit-transition: background 1s
+    -webkit-transition: background 0.5s;
 }
 
 .refresh:hover {
@@ -75,9 +82,21 @@ h2 {
     border-color: red;
     font-weight: bold;
     color: white;
+    -webkit-transition: background 0.5s;
+}
+
+.new:hover {
+    background: #ea4848;
+    border-color: darkred;
 }
 
 .old {
-    border: lightgray 1px solid;
+    border-color: lightgray;
     background-color: whitesmoke;
+    -webkit-transition: background 0.5s;
+}
+
+.old:hover {
+    border-color: grey;
+    background: lightgrey;
 }
