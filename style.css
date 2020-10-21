@@ -79,24 +79,24 @@ h2 {
 
 .new {
     background-color: lightcoral;
-    border-color: red;
+    border-color: rgb(233, 93, 93);
     font-weight: bold;
     color: white;
     -webkit-transition: background 0.5s;
 }
 
 .new:hover {
+    border-color: rgb(196, 33, 33);
     background: #ea4848;
-    border-color: darkred;
 }
 
 .old {
-    border-color: lightgray;
-    background-color: whitesmoke;
+    border-color: rgb(243, 212, 72);
+    background-color: lightgoldenrodyellow;
     -webkit-transition: background 0.5s;
 }
 
 .old:hover {
-    border-color: grey;
-    background: lightgrey;
+    border-color: rgb(255, 174, 0);
+    background: rgb(241, 205, 105);
 }

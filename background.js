@@ -1,6 +1,7 @@
 // background script is executed whenever chrome has started
 const redditUrl = "https://www.reddit.com/r/OnePiece/search.json?q=flair_name%3A%22Current%20Chapter%22&restrict_sr=1&t=month";
 const newChapterHourLimit = 24;
+const checkingInterval = 60;
 
 var chapters = [
     { title: "Test Title 1", url: "", status: "", created: "" },
@@ -16,7 +17,7 @@ if(dayOfWeek == 4 || dayOfWeek == 5) {
     var oneMinute = 60 * 1000;
 
     // activates every x minutes
-    setInterval(loadChaptersFromReddit, 30 * oneMinute);
+    setInterval(loadChaptersFromReddit, checkingInterval * oneMinute);
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -38,6 +39,7 @@ function getChapters() {
 }
 
 function loadChaptersFromReddit() {
+
     var posts = JSON.parse(httpGet(redditUrl));
 
     // var bp = chrome.extension.getBackgroundPage();
@@ -55,7 +57,6 @@ function loadChaptersFromReddit() {
         };
         chapters.push(chapter);
     });
-
     evaluatePosts();
 }
 
@@ -82,14 +83,15 @@ function evaluatePosts() {
 }
 
 function addBadgeToIcon() {
+
     chrome.browserAction.setBadgeText({text: 'New'});
     chrome.browserAction.setBadgeBackgroundColor({color: '#f72828'}); 
 }
 
-function httpGet(url)
-{
+function httpGet(url) {
+
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", url, false ); // false for synchronous request
-    xmlHttp.send( null );
+    xmlHttp.open("GET", url, false); // false for synchronous request
+    xmlHttp.send(null);
     return xmlHttp.responseText;
 }
