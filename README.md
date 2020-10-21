@@ -1,7 +1,5 @@
 # OnePieceChecker
 A Chrome Extension which checks for the newest release of the One Piece Manga.
-# OnePieceChecker
-A Chrome Extension which checks for the newest release of the One Piece Manga.
 
 ## Setup Instructions
 ### For Developers
@@ -12,4 +10,3 @@ A Chrome Extension which checks for the newest release of the One Piece Manga.
 5. Click the button on the page that says "Load Unpacked"
 6. Navigate to your unzipped project folder and select that and hit OK.
 7. You are now ready to start working on the extension! Just make sure you reload after each change you make to see the changes take place.
-
