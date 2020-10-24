@@ -1,6 +1,9 @@
 # OnePieceChecker
 A Chrome Extension which checks for the newest release of the One Piece Manga.
 
+## Download
+Click [HERE](https://github.com/erwintran0/OnePieceChecker/archive/main.zip) to Download the Zip-File
+
 ## Setup Instructions
 ### For Developers
 1. Make a clone of this project, unzipped.
