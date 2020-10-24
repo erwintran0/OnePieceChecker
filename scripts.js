@@ -33,6 +33,8 @@ function populateChapterList(chapters) {
 
         createChapterItem(chapter)
     });
+
+	console.log(chapters);
 }
 
 function createChapterItem(chapter, status) {

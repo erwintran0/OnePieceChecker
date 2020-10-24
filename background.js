@@ -42,9 +42,6 @@ function loadChaptersFromReddit() {
 
     var posts = JSON.parse(httpGet(redditUrl));
 
-    // var bp = chrome.extension.getBackgroundPage();
-    // bp.console.log(posts);
-
     chapters = [];
     posts.data.children.forEach(post => {
 
@@ -57,6 +54,7 @@ function loadChaptersFromReddit() {
         };
         chapters.push(chapter);
     });
+
     evaluatePosts();
 }
 
@@ -72,6 +70,9 @@ function evaluatePosts() {
             chapters[i].status = "new";
             addBadgeToIcon();
         }
+        else {
+        	removeBadgeFromIcon();
+        }
 
         if(chapters[i].title.endsWith("Discussion")) {            
             chapters.splice(i, 1);
@@ -86,6 +87,10 @@ function addBadgeToIcon() {
 
     chrome.browserAction.setBadgeText({text: 'New'});
     chrome.browserAction.setBadgeBackgroundColor({color: '#f72828'}); 
+}
+
+function removeBadgeFromIcon() {
+    chrome.browserAction.setBadgeText({text: ''});
 }
 
 function httpGet(url) {
