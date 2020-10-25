@@ -14,7 +14,7 @@ body {
     padding: 2px 12px;
     background-color: white;
     color: black;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid lightgrey;
 }
 
 .popup-body {
@@ -99,4 +99,5 @@ h2 {
 .old:hover {
     border-color: rgb(255, 174, 0);
     background: rgb(241, 205, 105);
+    font-weight: bold;
 }

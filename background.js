@@ -61,25 +61,28 @@ function loadChaptersFromReddit() {
 function evaluatePosts() {
 
     var i = 0;
+    var hasNew = false;
     while (i < chapters.length) {
+
+        if(chapters[i].title.endsWith("Discussion")) {            
+            chapters.splice(i, 1);
+            continue;
+        }
 
         var date = new Date(0).setUTCSeconds(chapters[i].created);
         var hoursDifference = Math.abs(Date.now() - date) / 36e5;
         if(hoursDifference < newChapterHourLimit) {
             // if chapter was created under x hours it's marked as new
             chapters[i].status = "new";
-            addBadgeToIcon();
+            hasNew = true;
         }
-        else {
-        	removeBadgeFromIcon();
-        }
-
-        if(chapters[i].title.endsWith("Discussion")) {            
-            chapters.splice(i, 1);
-        }
-        else {
-            ++i;
-        }
+        i++;
+    }
+    if(hasNew) {
+        addBadgeToIcon();
+    }
+    else {
+        removeBadgeFromIcon();
     }
 }
 
