@@ -26,7 +26,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         var chapters = getChapters();
         sendResponse(chapters);
     }
-    else {
+    else if(request == "loadChaptersFromReddit") {
         loadChaptersFromReddit();
         sendResponse({status: true});
     }
@@ -40,24 +40,36 @@ function getChapters() {
 
 function loadChaptersFromReddit() {
 
-    var posts = JSON.parse(httpGet(redditUrl));
+    // GET request to get reddit posts
+    fetch(redditUrl)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(posts) {
+            chapters = [];
 
-    chapters = [];
-    posts.data.children.forEach(post => {
-
-        // add chapter to list
-        var chapter = { 
-            title: post.data.title, 
-            url: post.data.url, 
-            created: post.data.created_utc, 
-            status: "old"
-        };
-        chapters.push(chapter);
-    });
-
-    evaluatePosts();
+            // fills chapters with current posts
+            posts.data.children.forEach(post => {
+        
+                // add chapter to list
+                var chapter = { 
+                    title: post.data.title, 
+                    url: post.data.url, 
+                    created: post.data.created_utc, 
+                    status: "old"
+                };
+                chapters.push(chapter);
+            });
+        
+            evaluatePosts();
+        })
+        .catch(() => {
+            console.log("ERROR: GET Request seems to be faulty");
+        });
 }
 
+// marks posts as old or new
+// adds icon badge on new chapters
 function evaluatePosts() {
 
     var i = 0;
@@ -94,12 +106,4 @@ function addBadgeToIcon() {
 
 function removeBadgeFromIcon() {
     chrome.browserAction.setBadgeText({text: ''});
-}
-
-function httpGet(url) {
-
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", url, false); // false for synchronous request
-    xmlHttp.send(null);
-    return xmlHttp.responseText;
 }
