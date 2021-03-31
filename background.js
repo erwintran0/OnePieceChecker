@@ -1,6 +1,6 @@
 // background script is executed whenever chrome has started
 const redditUrl = "https://www.reddit.com/r/OnePiece/search.json?q=flair_name%3A%22Current%20Chapter%22&restrict_sr=1&t=month";
-const newChapterHourLimit = 124;
+const newChapterHourLimit = 24;
 const checkingInterval = 60;
 
 var chapters = [
