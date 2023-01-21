@@ -29,15 +29,17 @@ function populateChapterList(chapters) {
     chapterList.innerHTML = '';
 
     // populate with new chapters
-    chapters.forEach(chapter => {
-
-        createChapterItem(chapter)
-    });
-
-	console.log(chapters);
+    try {
+        chapters.forEach(chapter => {
+            createChapterItem(chapter)
+        });
+    }
+    catch(err) {
+        console.log("Error: occured while creating chapter list. (Nothing to worry about tho...): " + err);
+    }
 }
 
-function createChapterItem(chapter, status) {
+function createChapterItem(chapter) {
 
     var divElement = document.createElement('button');
     divElement.innerHTML = chapter.title;

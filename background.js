@@ -1,23 +1,24 @@
 // background script is executed whenever chrome has started
+
 const redditUrl = "https://www.reddit.com/r/OnePiece/search.json?q=flair_name%3A%22Current%20Chapter%22&restrict_sr=1&t=month";
 const newChapterHourLimit = 24;
 const checkingInterval = 60;
 
-var chapters = [
-    { title: "Test Title 1", url: "", status: "", created: "" },
-    { title: "Test Title 2", url: "", status: "", created: "" }
-];
+var chapters = [];
 
-loadChaptersFromReddit();
+chrome.runtime.onStartup.addListener(() => {
+    loadChaptersFromReddit();
+});
 
 var dayOfWeek = new Date().getDay();
 // only check on Thursday and Friday
 if(dayOfWeek == 4 || dayOfWeek == 5) {
 
-    var oneMinute = 60 * 1000;
-
     // activates every x minutes
-    setInterval(loadChaptersFromReddit, checkingInterval * oneMinute);
+    chrome.alarms.create({ delayInMinutes: checkingInterval });
+    chrome.alarms.onAlarm.addListener(() => {
+        loadChaptersFromReddit();
+    });
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -39,14 +40,15 @@ function getChapters() {
 }
 
 function loadChaptersFromReddit() {
-
     // GET request to get reddit posts
     fetch(redditUrl)
         .then(function(response) {
             return response.json();
         })
-        .then(function(posts) {
+        .then(posts => {
             chapters = [];
+
+            console.log(posts)
 
             // fills chapters with current posts
             posts.data.children.forEach(post => {
@@ -63,8 +65,8 @@ function loadChaptersFromReddit() {
         
             evaluatePosts();
         })
-        .catch(() => {
-            console.log("ERROR: GET Request seems to be faulty");
+        .catch((err) => {
+            console.log("ERROR: Error occured while loading chapters: " + err);
         });
 }
 
@@ -100,10 +102,10 @@ function evaluatePosts() {
 
 function addBadgeToIcon() {
 
-    chrome.browserAction.setBadgeText({text: 'New'});
-    chrome.browserAction.setBadgeBackgroundColor({color: '#f72828'}); 
+    chrome.action.setBadgeText({text: 'New'});
+    chrome.action.setBadgeBackgroundColor({color: '#f72828'}); 
 }
 
 function removeBadgeFromIcon() {
-    chrome.browserAction.setBadgeText({text: ''});
+    chrome.action.setBadgeText({text: ''});
 }

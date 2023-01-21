@@ -1,19 +1,19 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "One Piece Checker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Erwin Tran",
   "description": "An Extension which checks the newest manga release on Reddit r/OnePiece",
   "permissions": ["activeTab"],
   "icons": {"128": "icon.png"},
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "service_worker": "background.js"
   },
-  "browser_action": {
-    "default_icon": "icon.png",
+  "action": {
+    "default_icon": {
+      "16": "icon.png"
+    },
     "default_popup": "popup.html",
-    "default_title": "An Extension which checks the newest manga release on Reddit r/OnePiece"
+    "default_title": "One Piece Checker"
   }
 }
